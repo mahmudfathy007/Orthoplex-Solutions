@@ -29,11 +29,6 @@ const User = sequelize.define('User', {
       isEmail: true,
     },
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
 });
 
 module.exports = User;
