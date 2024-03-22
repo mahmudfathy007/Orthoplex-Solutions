@@ -33,8 +33,36 @@ const getUserById = async (req, res) => {
     }
 };
 
+const updateUserDetails = async(req, res) => {
+    try {
+        const { userId } = req.params;
+        const { name, email } = req.body;
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).send({ message: "User not found" });
+        }
+
+        // Update fields if provided
+        if (name) {
+            user.name = name;
+        }
+        if (email) {
+            user.email = email;
+        }
+
+        await user.save();
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: "Internal server error" });
+    }
+};
+
+
+
 
 module.exports = {
     getAllUsers,
-    getUserById
+    getUserById,
+    updateUserDetails
 };
