@@ -5,5 +5,7 @@ const UserRoutes = express.Router();
 
 UserRoutes.get('/getAllUsers' , UserController.getAllUsers)
 
+UserRoutes.get('/getUserById/:userId' , UserController.getUserById)
+
 module.exports = UserRoutes;
 
