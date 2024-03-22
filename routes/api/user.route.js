@@ -4,7 +4,7 @@ const { authentication } = require('../../middlewares/authentication');
 
 const UserRoutes = express.Router();
 
-UserRoutes.get('/getAllUsers/:page', authentication , UserController.getAllUsers)
+UserRoutes.get('/getAllUsers/:page/:limit', authentication , UserController.getAllUsers)
 
 UserRoutes.get('/getUserById/:userId', authentication, UserController.getUserById)
 
