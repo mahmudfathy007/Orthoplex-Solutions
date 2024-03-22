@@ -3,12 +3,23 @@ const User = require('../database/models/user.model');
 
 
 const getAllUsers = async (req, res) => {
+    const { page = 1, limit = 10 } = req.params;
+    const offset = (page - 1) * limit;
+    
     try {
-        const users = await User.findAll({
-            // Exclude passwords
-            attributes: { exclude: ['password'] } 
+        const { count, rows } = await User.findAndCountAll({
+            attributes: { exclude: ['password'] },
+            offset,
+            limit: parseInt(limit)
         });
-        res.json(users);
+
+        const totalPages = Math.ceil(count / limit);
+        
+        res.json({
+            users: rows,
+            currentPage: parseInt(page),
+            totalPages
+        });
     } catch (err) {
         console.error(err);
         res.status(500).send({ message: "Internal server error" });
@@ -68,6 +79,7 @@ const deleteUser = async(req, res) => {
 
         await user.destroy();
         res.status(200).send({ message: "User deleted successfully" });
+        res.status(204).send();
     } catch (err) {
         console.error(err);
         res.status(500).send({ message: "Internal server error" });
