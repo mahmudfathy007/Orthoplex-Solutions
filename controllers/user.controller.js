@@ -58,11 +58,28 @@ const updateUserDetails = async(req, res) => {
     }
 };
 
+const deleteUser = async(req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).send({ message: "User not found" });
+        }
+
+        await user.destroy();
+        res.status(200).send({ message: "User deleted successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: "Internal server error" });
+    }
+};
+
 
 
 
 module.exports = {
     getAllUsers,
     getUserById,
-    updateUserDetails
+    updateUserDetails,
+    deleteUser
 };
