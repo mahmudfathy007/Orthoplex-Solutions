@@ -20,6 +20,9 @@ This project is a backend application built using Node.js, Express, and PostgreS
    npm install
    ```
 
+## Apis
+Postman Documentation : https://documenter.getpostman.com/view/25015433/2sA35Bb4dt
+
 ## Usage
 
 1. Start the server:
